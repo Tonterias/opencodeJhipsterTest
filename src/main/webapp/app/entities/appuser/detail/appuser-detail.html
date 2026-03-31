@@ -1,0 +1,89 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (appuser(); as appuserRef) {
+      <div>
+        <h2 data-cy="appuserDetailsHeading"><span jhiTranslate="opencodetestApp.appuser.detail.title">Appuser</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ appuserRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ appuserRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.bio">Bio</span></dt>
+          <dd>
+            <span>{{ appuserRef.bio }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.facebook">Facebook</span></dt>
+          <dd>
+            <span>{{ appuserRef.facebook }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.twitter">Twitter</span></dt>
+          <dd>
+            <span>{{ appuserRef.twitter }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.linkedin">Linkedin</span></dt>
+          <dd>
+            <span>{{ appuserRef.linkedin }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.instagram">Instagram</span></dt>
+          <dd>
+            <span>{{ appuserRef.instagram }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.birthdate">Birthdate</span></dt>
+          <dd>
+            <span>{{ appuserRef.birthdate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.user">User</span></dt>
+          <dd>
+            <span>{{ appuserRef.user?.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.interest">Interest</span></dt>
+          <dd>
+            @for (interest of appuserRef.interests; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/interest', interest.id, 'view']">{{ interest?.interestName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.activity">Activity</span></dt>
+          <dd>
+            @for (activity of appuserRef.activities; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/activity', activity.id, 'view']">{{ activity?.activityName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appuser.celeb">Celeb</span></dt>
+          <dd>
+            @for (celeb of appuserRef.celebs; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/celeb', celeb.id, 'view']">{{ celeb?.celebName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/appuser', appuserRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

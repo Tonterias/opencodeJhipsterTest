@@ -1,0 +1,225 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-appuser-heading" data-cy="AppuserCreateUpdateHeading" jhiTranslate="opencodetestApp.appuser.home.createOrEditLabel">
+        Crear o editar Appuser
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let creationDateRef = editForm.get('creationDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_creationDate" jhiTranslate="opencodetestApp.appuser.creationDate">Creation Date</label>
+          <div class="d-flex">
+            <input
+              id="field_creationDate"
+              data-cy="creationDate"
+              type="datetime-local"
+              class="form-control"
+              name="creationDate"
+              formControlName="creationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (creationDateRef.invalid && (creationDateRef.dirty || creationDateRef.touched)) {
+            <div>
+              @if (editForm.get('creationDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('creationDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let bioRef = editForm.get('bio')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_bio" jhiTranslate="opencodetestApp.appuser.bio">Bio</label>
+          <input type="text" class="form-control" name="bio" id="field_bio" data-cy="bio" formControlName="bio" />
+          @if (bioRef.invalid && (bioRef.dirty || bioRef.touched)) {
+            <div>
+              @if (editForm.get('bio')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '7500' }"
+                  >Este campo no puede superar más de 7500 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let facebookRef = editForm.get('facebook')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_facebook" jhiTranslate="opencodetestApp.appuser.facebook">Facebook</label>
+          <input type="text" class="form-control" name="facebook" id="field_facebook" data-cy="facebook" formControlName="facebook" />
+          @if (facebookRef.invalid && (facebookRef.dirty || facebookRef.touched)) {
+            <div>
+              @if (editForm.get('facebook')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let twitterRef = editForm.get('twitter')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_twitter" jhiTranslate="opencodetestApp.appuser.twitter">Twitter</label>
+          <input type="text" class="form-control" name="twitter" id="field_twitter" data-cy="twitter" formControlName="twitter" />
+          @if (twitterRef.invalid && (twitterRef.dirty || twitterRef.touched)) {
+            <div>
+              @if (editForm.get('twitter')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let linkedinRef = editForm.get('linkedin')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_linkedin" jhiTranslate="opencodetestApp.appuser.linkedin">Linkedin</label>
+          <input type="text" class="form-control" name="linkedin" id="field_linkedin" data-cy="linkedin" formControlName="linkedin" />
+          @if (linkedinRef.invalid && (linkedinRef.dirty || linkedinRef.touched)) {
+            <div>
+              @if (editForm.get('linkedin')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let instagramRef = editForm.get('instagram')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_instagram" jhiTranslate="opencodetestApp.appuser.instagram">Instagram</label>
+          <input type="text" class="form-control" name="instagram" id="field_instagram" data-cy="instagram" formControlName="instagram" />
+          @if (instagramRef.invalid && (instagramRef.dirty || instagramRef.touched)) {
+            <div>
+              @if (editForm.get('instagram')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_birthdate" jhiTranslate="opencodetestApp.appuser.birthdate">Birthdate</label>
+          <div class="d-flex">
+            <input
+              id="field_birthdate"
+              data-cy="birthdate"
+              type="datetime-local"
+              class="form-control"
+              name="birthdate"
+              formControlName="birthdate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" jhiTranslate="opencodetestApp.appuser.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            @if (!editForm.get('user')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (userOption of usersSharedCollection(); track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)) {
+          <div>
+            @if (editForm.get(['user'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_interests" jhiTranslate="opencodetestApp.appuser.interest">Interest</label>
+          <select
+            class="form-control"
+            id="field_interests"
+            data-cy="interest"
+            multiple
+            name="interests"
+            formControlName="interests"
+            [compareWith]="compareInterest"
+          >
+            @for (interestOption of interestsSharedCollection(); track $index) {
+              <option [ngValue]="interestOption">{{ interestOption.interestName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_activities" jhiTranslate="opencodetestApp.appuser.activity">Activity</label>
+          <select
+            class="form-control"
+            id="field_activities"
+            data-cy="activity"
+            multiple
+            name="activities"
+            formControlName="activities"
+            [compareWith]="compareActivity"
+          >
+            @for (activityOption of activitiesSharedCollection(); track $index) {
+              <option [ngValue]="activityOption">{{ activityOption.activityName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_celebs" jhiTranslate="opencodetestApp.appuser.celeb">Celeb</label>
+          <select
+            class="form-control"
+            id="field_celebs"
+            data-cy="celeb"
+            multiple
+            name="celebs"
+            formControlName="celebs"
+            [compareWith]="compareCeleb"
+          >
+            @for (celebOption of celebsSharedCollection(); track $index) {
+              <option [ngValue]="celebOption">{{ celebOption.celebName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

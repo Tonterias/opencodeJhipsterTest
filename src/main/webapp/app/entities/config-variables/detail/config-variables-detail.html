@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (configVariables(); as configVariablesRef) {
+      <div>
+        <h2 data-cy="configVariablesDetailsHeading">
+          <span jhiTranslate="opencodetestApp.configVariables.detail.title">Config Variables</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong1">Config Var Long 1</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong2">Config Var Long 2</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong3">Config Var Long 3</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong4">Config Var Long 4</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong5">Config Var Long 5</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong6">Config Var Long 6</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong6 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong7">Config Var Long 7</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong7 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong8">Config Var Long 8</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong8 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong9">Config Var Long 9</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong9 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong10">Config Var Long 10</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong10 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong11">Config Var Long 11</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong11 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong12">Config Var Long 12</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong12 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong13">Config Var Long 13</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong13 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong14">Config Var Long 14</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong14 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarLong15">Config Var Long 15</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarLong15 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarBoolean16">Config Var Boolean 16</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarBoolean16 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarBoolean17">Config Var Boolean 17</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarBoolean17 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarBoolean18">Config Var Boolean 18</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarBoolean18 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarString19">Config Var String 19</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarString19 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.configVariables.configVarString20">Config Var String 20</span></dt>
+          <dd>
+            <span>{{ configVariablesRef.configVarString20 }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/config-variables', configVariablesRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

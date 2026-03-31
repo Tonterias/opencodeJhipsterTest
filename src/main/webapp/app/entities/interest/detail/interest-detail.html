@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (interest(); as interestRef) {
+      <div>
+        <h2 data-cy="interestDetailsHeading"><span jhiTranslate="opencodetestApp.interest.detail.title">Interest</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ interestRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.interest.interestName">Interest Name</span></dt>
+          <dd>
+            <span>{{ interestRef.interestName }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.interest.appuser">Appuser</span></dt>
+          <dd>
+            @for (appuser of interestRef.appusers; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/appuser', appuser.id, 'view']">{{ appuser?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/interest', interestRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

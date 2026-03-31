@@ -1,0 +1,162 @@
+<div>
+  <h2 id="page-heading" data-cy="NotificationHeading">
+    <span jhiTranslate="opencodetestApp.notification.home.title">Notifications</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="opencodetestApp.notification.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-notification"
+        [routerLink]="['/notification/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="opencodetestApp.notification.home.createLabel">Crear nuevo Notification</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (notifications().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="opencodetestApp.notification.home.notFound">Ningún Notifications encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="creationDate">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.notification.creationDate">Creation Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="notificationDate">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.notification.notificationDate">Notification Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="notificationReason">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.notification.notificationReason">Notification Reason</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="notificationText">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.notification.notificationText">Notification Text</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="isDelivered">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.notification.isDelivered">Is Delivered</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="appuser.id">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.notification.appuser">Appuser</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (notification of notifications(); track trackId(notification)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/notification', notification.id, 'view']">{{ notification.id }}</a>
+              </td>
+              <td>{{ notification.creationDate | formatMediumDatetime }}</td>
+              <td>{{ notification.notificationDate | formatMediumDatetime }}</td>
+              <td [jhiTranslate]="'opencodetestApp.NotificationReason.' + (notification.notificationReason ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    FOLLOWING: 'FOLLOWING',
+                    UNFOLLOWING: 'UNFOLLOWING',
+                    PROPOSAL_RELEASED: 'PROPOSAL_RELEASED',
+                    FOLLOWER_STATUS: 'FOLLOWER_STATUS',
+                    AUTHORIZE_COMMUNITY_FOLLOWER: 'AUTHORIZE_COMMUNITY_FOLLOWER',
+                    UNAUTHORIZE_COMMUNITY_FOLLOWER: 'UNAUTHORIZE_COMMUNITY_FOLLOWER',
+                  }[notification.notificationReason ?? 'null']
+                }}
+              </td>
+              <td>{{ notification.notificationText }}</td>
+              <td>{{ notification.isDelivered }}</td>
+              <td>
+                @if (notification.appuser) {
+                  <div>
+                    <a [routerLink]="['/appuser', notification.appuser.id, 'view']">{{ notification.appuser.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/notification', notification.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/notification', notification.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(notification)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (notifications().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

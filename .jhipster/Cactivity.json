@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074331"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "activityName",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "40",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Cactivity",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "community",
+      "otherEntityRelationshipName": "cactivity",
+      "relationshipName": "community",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

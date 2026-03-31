@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074330"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "interestName",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "40",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Cinterest",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "community",
+      "otherEntityRelationshipName": "cinterest",
+      "relationshipName": "community",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

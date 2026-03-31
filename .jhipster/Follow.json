@@ -1,0 +1,52 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074325"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Follow",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "appuser",
+      "otherEntityRelationshipName": "followed",
+      "relationshipName": "followed",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "appuser",
+      "otherEntityRelationshipName": "following",
+      "relationshipName": "following",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "community",
+      "otherEntityRelationshipName": "cfollowed",
+      "relationshipName": "cfollowed",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "community",
+      "otherEntityRelationshipName": "cfollowing",
+      "relationshipName": "cfollowing",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

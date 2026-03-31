@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (cinterest(); as cinterestRef) {
+      <div>
+        <h2 data-cy="cinterestDetailsHeading"><span jhiTranslate="opencodetestApp.cinterest.detail.title">Cinterest</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ cinterestRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.cinterest.interestName">Interest Name</span></dt>
+          <dd>
+            <span>{{ cinterestRef.interestName }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.cinterest.community">Community</span></dt>
+          <dd>
+            @for (community of cinterestRef.communities; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/community', community.id, 'view']">{{ community?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/cinterest', cinterestRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

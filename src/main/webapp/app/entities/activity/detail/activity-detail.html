@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (activity(); as activityRef) {
+      <div>
+        <h2 data-cy="activityDetailsHeading"><span jhiTranslate="opencodetestApp.activity.detail.title">Activity</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ activityRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.activity.activityName">Activity Name</span></dt>
+          <dd>
+            <span>{{ activityRef.activityName }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.activity.appuser">Appuser</span></dt>
+          <dd>
+            @for (appuser of activityRef.appusers; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/appuser', appuser.id, 'view']">{{ appuser?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/activity', activityRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

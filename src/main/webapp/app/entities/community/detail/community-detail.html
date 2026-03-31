@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (community(); as communityRef) {
+      <div>
+        <h2 data-cy="communityDetailsHeading"><span jhiTranslate="opencodetestApp.community.detail.title">Community</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ communityRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ communityRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.communityName">Community Name</span></dt>
+          <dd>
+            <span>{{ communityRef.communityName }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.communityDescription">Community Description</span></dt>
+          <dd>
+            <span>{{ communityRef.communityDescription }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.image">Image</span></dt>
+          <dd>
+            @if (communityRef.image) {
+              <div>
+                <a (click)="openFile(communityRef.image, communityRef.imageContentType)">
+                  <img
+                    [src]="'data:' + communityRef.imageContentType + ';base64,' + communityRef.image"
+                    style="max-width: 100%"
+                    alt="community"
+                  />
+                </a>
+                {{ communityRef.imageContentType }}, {{ byteSize(communityRef.image) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.isActive">Is Active</span></dt>
+          <dd>
+            <span>{{ communityRef.isActive }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.appuser">Appuser</span></dt>
+          <dd>
+            @if (community()!.appuser) {
+              <div>
+                <a [routerLink]="['/appuser', community()!.appuser?.id, 'view']">{{ communityRef.appuser?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.cinterest">Cinterest</span></dt>
+          <dd>
+            @for (cinterest of communityRef.cinterests; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/cinterest', cinterest.id, 'view']">{{ cinterest?.interestName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.cactivity">Cactivity</span></dt>
+          <dd>
+            @for (cactivity of communityRef.cactivities; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/cactivity', cactivity.id, 'view']">{{ cactivity?.activityName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.community.cceleb">Cceleb</span></dt>
+          <dd>
+            @for (cceleb of communityRef.ccelebs; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/cceleb', cceleb.id, 'view']">{{ cceleb?.celebName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/community', communityRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

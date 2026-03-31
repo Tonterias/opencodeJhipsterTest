@@ -1,0 +1,65 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (blog(); as blogRef) {
+      <div>
+        <h2 data-cy="blogDetailsHeading"><span jhiTranslate="opencodetestApp.blog.detail.title">Blog</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ blogRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.blog.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ blogRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.blog.title">Title</span></dt>
+          <dd>
+            <span>{{ blogRef.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.blog.image">Image</span></dt>
+          <dd>
+            @if (blogRef.image) {
+              <div>
+                <a (click)="openFile(blogRef.image, blogRef.imageContentType)">
+                  <img [src]="'data:' + blogRef.imageContentType + ';base64,' + blogRef.image" style="max-width: 100%" alt="blog" />
+                </a>
+                {{ blogRef.imageContentType }}, {{ byteSize(blogRef.image) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.blog.appuser">Appuser</span></dt>
+          <dd>
+            @if (blog()!.appuser) {
+              <div>
+                <a [routerLink]="['/appuser', blog()!.appuser?.id, 'view']">{{ blogRef.appuser?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.blog.community">Community</span></dt>
+          <dd>
+            @if (blog()!.community) {
+              <div>
+                <a [routerLink]="['/community', blog()!.community?.id, 'view']">{{ blogRef.community?.communityName }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/blog', blogRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

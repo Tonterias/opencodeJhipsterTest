@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074322"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notificationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "notificationReason",
+      "fieldType": "NotificationReason",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "FOLLOWING,UNFOLLOWING,PROPOSAL_RELEASED,FOLLOWER_STATUS,AUTHORIZE_COMMUNITY_FOLLOWER,UNAUTHORIZE_COMMUNITY_FOLLOWER"
+    },
+    {
+      "fieldName": "notificationText",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "isDelivered",
+      "fieldType": "Boolean"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Notification",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "appuser",
+      "otherEntityRelationshipName": "notification",
+      "relationshipName": "appuser",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

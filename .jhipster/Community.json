@@ -1,0 +1,116 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074324"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "communityName",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "communityDescription",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "7500",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Community",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "blog",
+      "otherEntityRelationshipName": "community",
+      "relationshipName": "blog",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "follow",
+      "otherEntityRelationshipName": "cfollowed",
+      "relationshipName": "cfollowed",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "follow",
+      "otherEntityRelationshipName": "cfollowing",
+      "relationshipName": "cfollowing",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "blockuser",
+      "otherEntityRelationshipName": "cblockeduser",
+      "relationshipName": "cblockeduser",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "blockuser",
+      "otherEntityRelationshipName": "cblockinguser",
+      "relationshipName": "cblockinguser",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "appuser",
+      "otherEntityRelationshipName": "community",
+      "relationshipName": "appuser",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "interestName",
+      "otherEntityName": "cinterest",
+      "otherEntityRelationshipName": "community",
+      "relationshipName": "cinterest",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "activityName",
+      "otherEntityName": "cactivity",
+      "otherEntityRelationshipName": "community",
+      "relationshipName": "cactivity",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "celebName",
+      "otherEntityName": "cceleb",
+      "otherEntityRelationshipName": "community",
+      "relationshipName": "cceleb",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

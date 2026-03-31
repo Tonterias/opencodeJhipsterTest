@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (follow(); as followRef) {
+      <div>
+        <h2 data-cy="followDetailsHeading"><span jhiTranslate="opencodetestApp.follow.detail.title">Follow</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ followRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.follow.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ followRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.follow.followed">Followed</span></dt>
+          <dd>
+            @if (follow()!.followed) {
+              <div>
+                <a [routerLink]="['/appuser', follow()!.followed?.id, 'view']">{{ followRef.followed?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.follow.following">Following</span></dt>
+          <dd>
+            @if (follow()!.following) {
+              <div>
+                <a [routerLink]="['/appuser', follow()!.following?.id, 'view']">{{ followRef.following?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.follow.cfollowed">Cfollowed</span></dt>
+          <dd>
+            @if (follow()!.cfollowed) {
+              <div>
+                <a [routerLink]="['/community', follow()!.cfollowed?.id, 'view']">{{ followRef.cfollowed?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.follow.cfollowing">Cfollowing</span></dt>
+          <dd>
+            @if (follow()!.cfollowing) {
+              <div>
+                <a [routerLink]="['/community', follow()!.cfollowing?.id, 'view']">{{ followRef.cfollowing?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/follow', followRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-comment-heading" data-cy="CommentCreateUpdateHeading" jhiTranslate="opencodetestApp.comment.home.createOrEditLabel">
+        Crear o editar Comment
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let creationDateRef = editForm.get('creationDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_creationDate" jhiTranslate="opencodetestApp.comment.creationDate">Creation Date</label>
+          <div class="d-flex">
+            <input
+              id="field_creationDate"
+              data-cy="creationDate"
+              type="datetime-local"
+              class="form-control"
+              name="creationDate"
+              formControlName="creationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (creationDateRef.invalid && (creationDateRef.dirty || creationDateRef.touched)) {
+            <div>
+              @if (editForm.get('creationDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('creationDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let commentTextRef = editForm.get('commentText')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_commentText" jhiTranslate="opencodetestApp.comment.commentText">Comment Text</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commentText"
+            id="field_commentText"
+            data-cy="commentText"
+            formControlName="commentText"
+          />
+          @if (commentTextRef.invalid && (commentTextRef.dirty || commentTextRef.touched)) {
+            <div>
+              @if (editForm.get('commentText')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('commentText')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('commentText')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '65000' }"
+                  >Este campo no puede superar más de 65000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isOffensive" jhiTranslate="opencodetestApp.comment.isOffensive">Is Offensive</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isOffensive"
+            id="field_isOffensive"
+            data-cy="isOffensive"
+            formControlName="isOffensive"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_appuser" jhiTranslate="opencodetestApp.comment.appuser">Appuser</label>
+          <select
+            class="form-control"
+            id="field_appuser"
+            data-cy="appuser"
+            name="appuser"
+            formControlName="appuser"
+            [compareWith]="compareAppuser"
+          >
+            @if (editForm.get(['appuser'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (appuserOption of appusersSharedCollection(); track $index) {
+              <option [ngValue]="appuserOption">{{ appuserOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['appuser'])!.invalid && (editForm.get(['appuser'])!.dirty || editForm.get(['appuser'])!.touched)) {
+          <div>
+            @if (editForm.get(['appuser'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_post" jhiTranslate="opencodetestApp.comment.post">Post</label>
+          <select class="form-control" id="field_post" data-cy="post" name="post" formControlName="post" [compareWith]="comparePost">
+            @if (editForm.get(['post'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (postOption of postsSharedCollection(); track $index) {
+              <option [ngValue]="postOption">{{ postOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['post'])!.invalid && (editForm.get(['post'])!.dirty || editForm.get(['post'])!.touched)) {
+          <div>
+            @if (editForm.get(['post'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
