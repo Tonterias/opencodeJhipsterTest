@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (cactivity(); as cactivityRef) {
+      <div>
+        <h2 data-cy="cactivityDetailsHeading"><span jhiTranslate="opencodetestApp.cactivity.detail.title">Cactivity</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ cactivityRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.cactivity.activityName">Activity Name</span></dt>
+          <dd>
+            <span>{{ cactivityRef.activityName }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.cactivity.community">Community</span></dt>
+          <dd>
+            @for (community of cactivityRef.communities; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/community', community.id, 'view']">{{ community?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/cactivity', cactivityRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

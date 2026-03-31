@@ -1,0 +1,83 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-cactivity-heading" data-cy="CactivityCreateUpdateHeading" jhiTranslate="opencodetestApp.cactivity.home.createOrEditLabel">
+        Crear o editar Cactivity
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let activityNameRef = editForm.get('activityName')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_activityName" jhiTranslate="opencodetestApp.cactivity.activityName">Activity Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="activityName"
+            id="field_activityName"
+            data-cy="activityName"
+            formControlName="activityName"
+          />
+          @if (activityNameRef.invalid && (activityNameRef.dirty || activityNameRef.touched)) {
+            <div>
+              @if (editForm.get('activityName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('activityName')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('activityName')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '40' }"
+                  >Este campo no puede superar más de 40 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="field_communities" jhiTranslate="opencodetestApp.cactivity.community">Community</label>
+          <select
+            class="form-control"
+            id="field_communities"
+            data-cy="community"
+            multiple
+            name="communities"
+            formControlName="communities"
+            [compareWith]="compareCommunity"
+          >
+            @for (communityOption of communitiesSharedCollection(); track $index) {
+              <option [ngValue]="communityOption">{{ communityOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

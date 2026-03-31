@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (appphoto(); as appphotoRef) {
+      <div>
+        <h2 data-cy="appphotoDetailsHeading"><span jhiTranslate="opencodetestApp.appphoto.detail.title">Appphoto</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ appphotoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appphoto.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ appphotoRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appphoto.image">Image</span></dt>
+          <dd>
+            @if (appphotoRef.image) {
+              <div>
+                <a (click)="openFile(appphotoRef.image, appphotoRef.imageContentType)">
+                  <img
+                    [src]="'data:' + appphotoRef.imageContentType + ';base64,' + appphotoRef.image"
+                    style="max-width: 100%"
+                    alt="appphoto"
+                  />
+                </a>
+                {{ appphotoRef.imageContentType }}, {{ byteSize(appphotoRef.image) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.appphoto.appuser">Appuser</span></dt>
+          <dd>
+            @if (appphoto()!.appuser) {
+              <div>
+                <a [routerLink]="['/appuser', appphoto()!.appuser?.id, 'view']">{{ appphotoRef.appuser?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/appphoto', appphotoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

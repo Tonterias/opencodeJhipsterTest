@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074319"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "topicName",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "40",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Topic",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "headline",
+      "otherEntityName": "post",
+      "otherEntityRelationshipName": "topic",
+      "relationshipName": "post",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

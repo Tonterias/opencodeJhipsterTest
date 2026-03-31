@@ -2,6 +2,9 @@
 // Monolithic Spingular V7
 
 // ENTITIES:
+// Declara la entidad User vacía para que JHipster sepa que existe
+entity User
+
 entity Appuser {
     creationDate Instant required
     bio String maxlength(7500)
@@ -198,7 +201,7 @@ enum NotificationReason {
 
 // RELATIONSHIPS:
 relationship OneToOne {
-    Appuser{user(id) required} to User{appuser(id)}
+    Appuser{user(id) required} to User
     Appphoto{appuser(id) required} to Appuser{appphoto(id)}
 }
 

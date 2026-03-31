@@ -1,0 +1,30 @@
+@if (frontpageconfig) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(frontpageconfig.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="frontpageconfigDeleteDialogHeading" jhiTranslate="entity.delete.title">
+        Confirmar operación de borrado
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p
+        id="jhi-delete-frontpageconfig-heading"
+        jhiTranslate="opencodetestApp.frontpageconfig.delete.question"
+        [translateValues]="{ id: frontpageconfig.id }"
+      >
+        ¿Seguro que quiere eliminar Frontpageconfig {{ frontpageconfig.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-frontpageconfig" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

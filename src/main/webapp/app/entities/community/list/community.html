@@ -1,0 +1,236 @@
+<div>
+  <h2 id="page-heading" data-cy="CommunityHeading">
+    <span jhiTranslate="opencodetestApp.community.home.title">Communities</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="opencodetestApp.community.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-community"
+        [routerLink]="['/community/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="opencodetestApp.community.home.createLabel">Crear nuevo Community</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (communities().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="opencodetestApp.community.home.notFound">Ningún Communities encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="creationDate">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.community.creationDate">Creation Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="communityName">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.community.communityName">Community Name</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="communityDescription">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.community.communityDescription">Community Description</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="image">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.community.image">Image</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="isActive">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.community.isActive">Is Active</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="appuser.id">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.community.appuser">Appuser</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (community of communities(); track trackId(community)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/community', community.id, 'view']">{{ community.id }}</a>
+              </td>
+              <td>{{ community.creationDate | formatMediumDatetime }}</td>
+              <td>{{ community.communityName }}</td>
+              <td>{{ community.communityDescription }}</td>
+              <td>
+                @if (community.image) {
+                  <a (click)="openFile(community.image, community.imageContentType)">
+                    <img
+                      [src]="'data:' + community.imageContentType + ';base64,' + community.image"
+                      style="max-height: 30px"
+                      alt="community"
+                    />
+                  </a>
+                  <span>{{ community.imageContentType }}, {{ byteSize(community.image) }}</span>
+                }
+              </td>
+              <td>{{ community.isActive }}</td>
+              <td>
+                @if (community.appuser) {
+                  <div>
+                    <a [routerLink]="['/appuser', community.appuser.id, 'view']">{{ community.appuser.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/blog']"
+                    [queryParams]="{ 'filter[communityId.in]': community.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('opencodetestApp.community.blog' | translate) }"
+                      >Show Blog</span
+                    >
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/follow']"
+                    [queryParams]="{ 'filter[cfollowedId.in]': community.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('opencodetestApp.community.cfollowed' | translate) }"
+                      >Show Cfollowed</span
+                    >
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/follow']"
+                    [queryParams]="{ 'filter[cfollowingId.in]': community.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('opencodetestApp.community.cfollowing' | translate) }"
+                      >Show Cfollowing</span
+                    >
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/blockuser']"
+                    [queryParams]="{ 'filter[cblockeduserId.in]': community.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('opencodetestApp.community.cblockeduser' | translate) }"
+                      >Show Cblockeduser</span
+                    >
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/blockuser']"
+                    [queryParams]="{ 'filter[cblockinguserId.in]': community.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('opencodetestApp.community.cblockinguser' | translate) }"
+                      >Show Cblockinguser</span
+                    >
+                  </button>
+                  <a [routerLink]="['/community', community.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/community', community.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(community)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (communities().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,251 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-community-heading" data-cy="CommunityCreateUpdateHeading" jhiTranslate="opencodetestApp.community.home.createOrEditLabel">
+        Crear o editar Community
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let creationDateRef = editForm.get('creationDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_creationDate" jhiTranslate="opencodetestApp.community.creationDate">Creation Date</label>
+          <div class="d-flex">
+            <input
+              id="field_creationDate"
+              data-cy="creationDate"
+              type="datetime-local"
+              class="form-control"
+              name="creationDate"
+              formControlName="creationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (creationDateRef.invalid && (creationDateRef.dirty || creationDateRef.touched)) {
+            <div>
+              @if (editForm.get('creationDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('creationDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let communityNameRef = editForm.get('communityName')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_communityName" jhiTranslate="opencodetestApp.community.communityName">Community Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="communityName"
+            id="field_communityName"
+            data-cy="communityName"
+            formControlName="communityName"
+          />
+          @if (communityNameRef.invalid && (communityNameRef.dirty || communityNameRef.touched)) {
+            <div>
+              @if (editForm.get('communityName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('communityName')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('communityName')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '100' }"
+                  >Este campo no puede superar más de 100 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let communityDescriptionRef = editForm.get('communityDescription')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_communityDescription" jhiTranslate="opencodetestApp.community.communityDescription"
+            >Community Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="communityDescription"
+            id="field_communityDescription"
+            data-cy="communityDescription"
+            formControlName="communityDescription"
+          />
+          @if (communityDescriptionRef.invalid && (communityDescriptionRef.dirty || communityDescriptionRef.touched)) {
+            <div>
+              @if (editForm.get('communityDescription')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('communityDescription')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('communityDescription')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '7500' }"
+                  >Este campo no puede superar más de 7500 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let imageRef = editForm.get('image')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_image" jhiTranslate="opencodetestApp.community.image">Image</label>
+          <div>
+            @if (imageRef.value) {
+              <img
+                [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + imageRef.value"
+                style="max-height: 100px"
+                alt="community"
+              />
+            }
+            @if (imageRef.value) {
+              <div class="form-text text-danger clearfix">
+                <span class="pull-start">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(imageRef.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times" />
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isActive" jhiTranslate="opencodetestApp.community.isActive">Is Active</label>
+          <input type="checkbox" class="form-check" name="isActive" id="field_isActive" data-cy="isActive" formControlName="isActive" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_appuser" jhiTranslate="opencodetestApp.community.appuser">Appuser</label>
+          <select
+            class="form-control"
+            id="field_appuser"
+            data-cy="appuser"
+            name="appuser"
+            formControlName="appuser"
+            [compareWith]="compareAppuser"
+          >
+            @if (editForm.get(['appuser'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (appuserOption of appusersSharedCollection(); track $index) {
+              <option [ngValue]="appuserOption">{{ appuserOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['appuser'])!.invalid && (editForm.get(['appuser'])!.dirty || editForm.get(['appuser'])!.touched)) {
+          <div>
+            @if (editForm.get(['appuser'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_cinterests" jhiTranslate="opencodetestApp.community.cinterest">Cinterest</label>
+          <select
+            class="form-control"
+            id="field_cinterests"
+            data-cy="cinterest"
+            multiple
+            name="cinterests"
+            formControlName="cinterests"
+            [compareWith]="compareCinterest"
+          >
+            @for (cinterestOption of cinterestsSharedCollection(); track $index) {
+              <option [ngValue]="cinterestOption">{{ cinterestOption.interestName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_cactivities" jhiTranslate="opencodetestApp.community.cactivity">Cactivity</label>
+          <select
+            class="form-control"
+            id="field_cactivities"
+            data-cy="cactivity"
+            multiple
+            name="cactivities"
+            formControlName="cactivities"
+            [compareWith]="compareCactivity"
+          >
+            @for (cactivityOption of cactivitiesSharedCollection(); track $index) {
+              <option [ngValue]="cactivityOption">{{ cactivityOption.activityName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_ccelebs" jhiTranslate="opencodetestApp.community.cceleb">Cceleb</label>
+          <select
+            class="form-control"
+            id="field_ccelebs"
+            data-cy="cceleb"
+            multiple
+            name="ccelebs"
+            formControlName="ccelebs"
+            [compareWith]="compareCceleb"
+          >
+            @for (ccelebOption of ccelebsSharedCollection(); track $index) {
+              <option [ngValue]="ccelebOption">{{ ccelebOption.celebName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

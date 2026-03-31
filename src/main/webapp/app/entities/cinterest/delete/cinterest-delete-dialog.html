@@ -1,0 +1,28 @@
+@if (cinterest) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(cinterest.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="cinterestDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p
+        id="jhi-delete-cinterest-heading"
+        jhiTranslate="opencodetestApp.cinterest.delete.question"
+        [translateValues]="{ id: cinterest.id }"
+      >
+        ¿Seguro que quiere eliminar Cinterest {{ cinterest.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-cinterest" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

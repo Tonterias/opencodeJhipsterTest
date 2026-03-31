@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (post(); as postRef) {
+      <div>
+        <h2 data-cy="postDetailsHeading"><span jhiTranslate="opencodetestApp.post.detail.title">Post</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ postRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ postRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.publicationDate">Publication Date</span></dt>
+          <dd>
+            <span>{{ postRef.publicationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.headline">Headline</span></dt>
+          <dd>
+            <span>{{ postRef.headline }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.leadtext">Leadtext</span></dt>
+          <dd>
+            <span>{{ postRef.leadtext }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.bodytext">Bodytext</span></dt>
+          <dd>
+            <span>{{ postRef.bodytext }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.quote">Quote</span></dt>
+          <dd>
+            <span>{{ postRef.quote }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.conclusion">Conclusion</span></dt>
+          <dd>
+            <span>{{ postRef.conclusion }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.linkText">Link Text</span></dt>
+          <dd>
+            <span>{{ postRef.linkText }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.linkURL">Link URL</span></dt>
+          <dd>
+            <span>{{ postRef.linkURL }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.image">Image</span></dt>
+          <dd>
+            @if (postRef.image) {
+              <div>
+                <a (click)="openFile(postRef.image, postRef.imageContentType)">
+                  <img [src]="'data:' + postRef.imageContentType + ';base64,' + postRef.image" style="max-width: 100%" alt="post" />
+                </a>
+                {{ postRef.imageContentType }}, {{ byteSize(postRef.image) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.appuser">Appuser</span></dt>
+          <dd>
+            @if (post()!.appuser) {
+              <div>
+                <a [routerLink]="['/appuser', post()!.appuser?.id, 'view']">{{ postRef.appuser?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.blog">Blog</span></dt>
+          <dd>
+            @if (post()!.blog) {
+              <div>
+                <a [routerLink]="['/blog', post()!.blog?.id, 'view']">{{ postRef.blog?.title }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.tag">Tag</span></dt>
+          <dd>
+            @for (tag of postRef.tags; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/tag', tag.id, 'view']">{{ tag?.tagName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.post.topic">Topic</span></dt>
+          <dd>
+            @for (topic of postRef.topics; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/topic', topic.id, 'view']">{{ topic?.topicName }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/post', postRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

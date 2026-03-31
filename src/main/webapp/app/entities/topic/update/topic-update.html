@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-topic-heading" data-cy="TopicCreateUpdateHeading" jhiTranslate="opencodetestApp.topic.home.createOrEditLabel">
+        Crear o editar Topic
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let topicNameRef = editForm.get('topicName')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_topicName" jhiTranslate="opencodetestApp.topic.topicName">Topic Name</label>
+          <input type="text" class="form-control" name="topicName" id="field_topicName" data-cy="topicName" formControlName="topicName" />
+          @if (topicNameRef.invalid && (topicNameRef.dirty || topicNameRef.touched)) {
+            <div>
+              @if (editForm.get('topicName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('topicName')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('topicName')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '40' }"
+                  >Este campo no puede superar más de 40 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="field_posts" jhiTranslate="opencodetestApp.topic.post">Post</label>
+          <select
+            class="form-control"
+            id="field_posts"
+            data-cy="post"
+            multiple
+            name="posts"
+            formControlName="posts"
+            [compareWith]="comparePost"
+          >
+            @for (postOption of postsSharedCollection(); track $index) {
+              <option [ngValue]="postOption">{{ postOption.headline }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

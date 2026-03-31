@@ -1,0 +1,225 @@
+<div>
+  <h2 id="page-heading" data-cy="PostHeading">
+    <span jhiTranslate="opencodetestApp.post.home.title">Posts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="opencodetestApp.post.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-post"
+        [routerLink]="['/post/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="opencodetestApp.post.home.createLabel">Crear nuevo Post</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (posts().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="opencodetestApp.post.home.notFound">Ningún Posts encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="creationDate">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.creationDate">Creation Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="publicationDate">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.publicationDate">Publication Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="headline">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.headline">Headline</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="leadtext">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.leadtext">Leadtext</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="bodytext">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.bodytext">Bodytext</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quote">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.quote">Quote</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="conclusion">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.conclusion">Conclusion</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="linkText">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.linkText">Link Text</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="linkURL">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.linkURL">Link URL</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="image">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.image">Image</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="appuser.id">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.appuser">Appuser</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="blog.title">
+              <div class="d-flex">
+                <span jhiTranslate="opencodetestApp.post.blog">Blog</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (post of posts(); track trackId(post)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/post', post.id, 'view']">{{ post.id }}</a>
+              </td>
+              <td>{{ post.creationDate | formatMediumDatetime }}</td>
+              <td>{{ post.publicationDate | formatMediumDatetime }}</td>
+              <td>{{ post.headline }}</td>
+              <td>{{ post.leadtext }}</td>
+              <td>{{ post.bodytext }}</td>
+              <td>{{ post.quote }}</td>
+              <td>{{ post.conclusion }}</td>
+              <td>{{ post.linkText }}</td>
+              <td>{{ post.linkURL }}</td>
+              <td>
+                @if (post.image) {
+                  <a (click)="openFile(post.image, post.imageContentType)">
+                    <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-height: 30px" alt="post" />
+                  </a>
+                  <span>{{ post.imageContentType }}, {{ byteSize(post.image) }}</span>
+                }
+              </td>
+              <td>
+                @if (post.appuser) {
+                  <div>
+                    <a [routerLink]="['/appuser', post.appuser.id, 'view']">{{ post.appuser.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (post.blog) {
+                  <div>
+                    <a [routerLink]="['/blog', post.blog.id, 'view']">{{ post.blog.title }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/comment']"
+                    [queryParams]="{ 'filter[postId.in]': post.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('opencodetestApp.post.comment' | translate) }"
+                      >Show Comment</span
+                    >
+                  </button>
+                  <a [routerLink]="['/post', post.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(post)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (posts().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

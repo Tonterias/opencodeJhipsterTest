@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (topic(); as topicRef) {
+      <div>
+        <h2 data-cy="topicDetailsHeading"><span jhiTranslate="opencodetestApp.topic.detail.title">Topic</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ topicRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.topic.topicName">Topic Name</span></dt>
+          <dd>
+            <span>{{ topicRef.topicName }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.topic.post">Post</span></dt>
+          <dd>
+            @for (post of topicRef.posts; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/post', post.id, 'view']">{{ post?.headline }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/topic', topicRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

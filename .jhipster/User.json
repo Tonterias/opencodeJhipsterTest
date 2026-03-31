@@ -1,0 +1,15 @@
+{
+  "annotations": {
+    "changelogDate": "20260331074315"
+  },
+  "applications": ["*"],
+  "dto": "mapstruct",
+  "entityTableName": "jhi_user",
+  "fields": [],
+  "jpaMetamodelFiltering": true,
+  "name": "User",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

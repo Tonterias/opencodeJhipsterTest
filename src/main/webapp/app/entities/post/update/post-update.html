@@ -1,0 +1,346 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-post-heading" data-cy="PostCreateUpdateHeading" jhiTranslate="opencodetestApp.post.home.createOrEditLabel">
+        Crear o editar Post
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let creationDateRef = editForm.get('creationDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_creationDate" jhiTranslate="opencodetestApp.post.creationDate">Creation Date</label>
+          <div class="d-flex">
+            <input
+              id="field_creationDate"
+              data-cy="creationDate"
+              type="datetime-local"
+              class="form-control"
+              name="creationDate"
+              formControlName="creationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (creationDateRef.invalid && (creationDateRef.dirty || creationDateRef.touched)) {
+            <div>
+              @if (editForm.get('creationDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('creationDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_publicationDate" jhiTranslate="opencodetestApp.post.publicationDate">Publication Date</label>
+          <div class="d-flex">
+            <input
+              id="field_publicationDate"
+              data-cy="publicationDate"
+              type="datetime-local"
+              class="form-control"
+              name="publicationDate"
+              formControlName="publicationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        @let headlineRef = editForm.get('headline')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_headline" jhiTranslate="opencodetestApp.post.headline">Headline</label>
+          <input type="text" class="form-control" name="headline" id="field_headline" data-cy="headline" formControlName="headline" />
+          @if (headlineRef.invalid && (headlineRef.dirty || headlineRef.touched)) {
+            <div>
+              @if (editForm.get('headline')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('headline')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('headline')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '100' }"
+                  >Este campo no puede superar más de 100 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let leadtextRef = editForm.get('leadtext')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_leadtext" jhiTranslate="opencodetestApp.post.leadtext">Leadtext</label>
+          <input type="text" class="form-control" name="leadtext" id="field_leadtext" data-cy="leadtext" formControlName="leadtext" />
+          @if (leadtextRef.invalid && (leadtextRef.dirty || leadtextRef.touched)) {
+            <div>
+              @if (editForm.get('leadtext')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('leadtext')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '1000' }"
+                  >Este campo no puede superar más de 1000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let bodytextRef = editForm.get('bodytext')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_bodytext" jhiTranslate="opencodetestApp.post.bodytext">Bodytext</label>
+          <input type="text" class="form-control" name="bodytext" id="field_bodytext" data-cy="bodytext" formControlName="bodytext" />
+          @if (bodytextRef.invalid && (bodytextRef.dirty || bodytextRef.touched)) {
+            <div>
+              @if (editForm.get('bodytext')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('bodytext')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('bodytext')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '65000' }"
+                  >Este campo no puede superar más de 65000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let quoteRef = editForm.get('quote')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_quote" jhiTranslate="opencodetestApp.post.quote">Quote</label>
+          <input type="text" class="form-control" name="quote" id="field_quote" data-cy="quote" formControlName="quote" />
+          @if (quoteRef.invalid && (quoteRef.dirty || quoteRef.touched)) {
+            <div>
+              @if (editForm.get('quote')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('quote')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '1000' }"
+                  >Este campo no puede superar más de 1000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let conclusionRef = editForm.get('conclusion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_conclusion" jhiTranslate="opencodetestApp.post.conclusion">Conclusion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="conclusion"
+            id="field_conclusion"
+            data-cy="conclusion"
+            formControlName="conclusion"
+          />
+          @if (conclusionRef.invalid && (conclusionRef.dirty || conclusionRef.touched)) {
+            <div>
+              @if (editForm.get('conclusion')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('conclusion')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '2000' }"
+                  >Este campo no puede superar más de 2000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let linkTextRef = editForm.get('linkText')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_linkText" jhiTranslate="opencodetestApp.post.linkText">Link Text</label>
+          <input type="text" class="form-control" name="linkText" id="field_linkText" data-cy="linkText" formControlName="linkText" />
+          @if (linkTextRef.invalid && (linkTextRef.dirty || linkTextRef.touched)) {
+            <div>
+              @if (editForm.get('linkText')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('linkText')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '1000' }"
+                  >Este campo no puede superar más de 1000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let linkURLRef = editForm.get('linkURL')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_linkURL" jhiTranslate="opencodetestApp.post.linkURL">Link URL</label>
+          <input type="text" class="form-control" name="linkURL" id="field_linkURL" data-cy="linkURL" formControlName="linkURL" />
+          @if (linkURLRef.invalid && (linkURLRef.dirty || linkURLRef.touched)) {
+            <div>
+              @if (editForm.get('linkURL')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '2' }"
+                  >Este campo requiere al menos 2 caracteres.</small
+                >
+              }
+              @if (editForm.get('linkURL')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '1000' }"
+                  >Este campo no puede superar más de 1000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let imageRef = editForm.get('image')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_image" jhiTranslate="opencodetestApp.post.image">Image</label>
+          <div>
+            @if (imageRef.value) {
+              <img
+                [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + imageRef.value"
+                style="max-height: 100px"
+                alt="post"
+              />
+            }
+            @if (imageRef.value) {
+              <div class="form-text text-danger clearfix">
+                <span class="pull-start">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(imageRef.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times" />
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_appuser" jhiTranslate="opencodetestApp.post.appuser">Appuser</label>
+          <select
+            class="form-control"
+            id="field_appuser"
+            data-cy="appuser"
+            name="appuser"
+            formControlName="appuser"
+            [compareWith]="compareAppuser"
+          >
+            @if (editForm.get(['appuser'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (appuserOption of appusersSharedCollection(); track $index) {
+              <option [ngValue]="appuserOption">{{ appuserOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['appuser'])!.invalid && (editForm.get(['appuser'])!.dirty || editForm.get(['appuser'])!.touched)) {
+          <div>
+            @if (editForm.get(['appuser'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_blog" jhiTranslate="opencodetestApp.post.blog">Blog</label>
+          <select class="form-control" id="field_blog" data-cy="blog" name="blog" formControlName="blog" [compareWith]="compareBlog">
+            @if (editForm.get(['blog'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (blogOption of blogsSharedCollection(); track $index) {
+              <option [ngValue]="blogOption">{{ blogOption.title }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['blog'])!.invalid && (editForm.get(['blog'])!.dirty || editForm.get(['blog'])!.touched)) {
+          <div>
+            @if (editForm.get(['blog'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_tags" jhiTranslate="opencodetestApp.post.tag">Tag</label>
+          <select class="form-control" id="field_tags" data-cy="tag" multiple name="tags" formControlName="tags" [compareWith]="compareTag">
+            @for (tagOption of tagsSharedCollection(); track $index) {
+              <option [ngValue]="tagOption">{{ tagOption.tagName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_topics" jhiTranslate="opencodetestApp.post.topic">Topic</label>
+          <select
+            class="form-control"
+            id="field_topics"
+            data-cy="topic"
+            multiple
+            name="topics"
+            formControlName="topics"
+            [compareWith]="compareTopic"
+          >
+            @for (topicOption of topicsSharedCollection(); track $index) {
+              <option [ngValue]="topicOption">{{ topicOption.topicName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

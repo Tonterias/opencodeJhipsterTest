@@ -1,0 +1,256 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (frontpageconfig(); as frontpageconfigRef) {
+      <div>
+        <h2 data-cy="frontpageconfigDetailsHeading">
+          <span jhiTranslate="opencodetestApp.frontpageconfig.detail.title">Frontpageconfig</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.topNews1">Top News 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.topNews1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.topNews2">Top News 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.topNews2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.topNews3">Top News 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.topNews3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.topNews4">Top News 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.topNews4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.topNews5">Top News 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.topNews5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.latestNews1">Latest News 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.latestNews1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.latestNews2">Latest News 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.latestNews2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.latestNews3">Latest News 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.latestNews3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.latestNews4">Latest News 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.latestNews4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.latestNews5">Latest News 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.latestNews5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.breakingNews1">Breaking News 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.breakingNews1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentPosts1">Recent Posts 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentPosts1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentPosts2">Recent Posts 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentPosts2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentPosts3">Recent Posts 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentPosts3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentPosts4">Recent Posts 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentPosts4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles1">Featured Articles 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles2">Featured Articles 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles3">Featured Articles 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles4">Featured Articles 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles5">Featured Articles 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles6">Featured Articles 6</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles6 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles7">Featured Articles 7</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles7 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles8">Featured Articles 8</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles8 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles9">Featured Articles 9</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles9 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.featuredArticles10">Featured Articles 10</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.featuredArticles10 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews1">Popular News 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews2">Popular News 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews3">Popular News 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews4">Popular News 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews5">Popular News 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews6">Popular News 6</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews6 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews7">Popular News 7</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews7 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.popularNews8">Popular News 8</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.popularNews8 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.weeklyNews1">Weekly News 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.weeklyNews1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.weeklyNews2">Weekly News 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.weeklyNews2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.weeklyNews3">Weekly News 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.weeklyNews3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.weeklyNews4">Weekly News 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.weeklyNews4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.newsFeeds1">News Feeds 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.newsFeeds1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.newsFeeds2">News Feeds 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.newsFeeds2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.newsFeeds3">News Feeds 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.newsFeeds3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.newsFeeds4">News Feeds 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.newsFeeds4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.newsFeeds5">News Feeds 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.newsFeeds5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.newsFeeds6">News Feeds 6</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.newsFeeds6 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.usefulLinks1">Useful Links 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.usefulLinks1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.usefulLinks2">Useful Links 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.usefulLinks2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.usefulLinks3">Useful Links 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.usefulLinks3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.usefulLinks4">Useful Links 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.usefulLinks4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.usefulLinks5">Useful Links 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.usefulLinks5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.usefulLinks6">Useful Links 6</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.usefulLinks6 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentVideos1">Recent Videos 1</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentVideos1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentVideos2">Recent Videos 2</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentVideos2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentVideos3">Recent Videos 3</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentVideos3 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentVideos4">Recent Videos 4</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentVideos4 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentVideos5">Recent Videos 5</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentVideos5 }}</span>
+          </dd>
+          <dt><span jhiTranslate="opencodetestApp.frontpageconfig.recentVideos6">Recent Videos 6</span></dt>
+          <dd>
+            <span>{{ frontpageconfigRef.recentVideos6 }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/frontpageconfig', frontpageconfigRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
